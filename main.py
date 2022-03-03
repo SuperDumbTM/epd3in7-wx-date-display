@@ -36,12 +36,14 @@ date30 = ImageFont.truetype("./font/unispace bd.ttf", 30)
 def main(argv):
     global DIST, RAINFALL_DIST, CUSTOM_LOC_FLAG, VERBOSE_FLAG, ROTATE_FLAG
 
-    opts, args = getopt.getopt(argv[1:],'c:vhR',["custom-location=","verbose","help","rotate-display"])
+    opts, args = getopt.getopt(argv[1:],'d:r:vhR',["district=","rainfall-district=","verbose","help","rotate-display"])
     for opt,arg in opts:
-        if opt in ['-c', '--custom-location']:
+        if opt in ['-d', '--district']:
             CUSTOM_LOC_FLAG = True
-            DIST = arg[0]
-            RAINFALL_DIST = arg[1]
+            DIST = arg
+        elif opt in ['-r', '--rainfall-district']:
+            CUSTOM_LOC_FLAG = True
+            RAINFALL_DIST = arg
         elif opt in ['-v', '--verbose']:
             VERBOSE_FLAG = True
         elif opt in ['-R', '--rotate-display']:

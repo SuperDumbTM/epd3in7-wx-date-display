@@ -13,9 +13,9 @@ DIST = ""
 RAINFALL_DIST = ""
 VERBOSE_FLAG = False
 # set font
-font24 = ImageFont.truetype("/font/msjh.ttc", 24)
-font18 = ImageFont.truetype("/font/msjh.ttc", 18)
-font14 = ImageFont.truetype("/font/msjh.ttc", 14)
+font24 = ImageFont.truetype("./font/msjh.ttc", 24)
+font18 = ImageFont.truetype("./font/msjh.ttc", 18)
+font14 = ImageFont.truetype("./font/msjh.ttc", 14)
 
 def drawFrame(epd):
     Himage = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white

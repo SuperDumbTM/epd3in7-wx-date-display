@@ -39,6 +39,7 @@ crrt_wx=wx.rhrread_process(VERBOSE_FLAG)
 forecast_wx=wx.fnd_process(VERBOSE_FLAG)
 
 def main(argv):
+    global DIST, RAINFALL_DIST, CUSTOM_LOC_FLAG, VERBOSE_FLAG, ROTATE_FLAG
 
     opts, args = getopt.getopt(argv[1:],'d:r:vhR',["district=","rainfaill-district=","verbose","help","rotate-display"])
     for opt,arg in opts:

@@ -41,6 +41,7 @@ class WeatherInfo:
         fnd_url = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=tc'
         fnd_data = json.loads(requests.get(fnd_url).text)
         data=[]
+        msg={}
         
         for i in range (days):
             data.append(
@@ -55,15 +56,15 @@ class WeatherInfo:
                     "psr":fnd_data["weatherForecast"][i]["PSR"],
                     "icon":fnd_data["weatherForecast"][i]["ForecastIcon"]}
             )
-        data.append(fnd_data["generalSituation"])
-        data.append(fnd_data["updateTime"])
+        msg["generalSituation"]=fnd_data["generalSituation"]
+        msg["updateTime"]=fnd_data["updateTime"]
         
         if (verbose):
-            self.verbose(data,"fnd",days=days)
+            self.verbose(data,"fnd",days=days,msg=msg)
         
         return data
     
-    def verbose(self,data,type,days=2):
+    def verbose(self,data,type,days=2,msg={}):
 
         translation ={}
 
@@ -72,5 +73,8 @@ class WeatherInfo:
                 print("{:<16s}: {:<10s}".format(key, str(data[key])))
         elif (type == "fnd"):
             for i in range(days):
-                for key in data:
+                for key in data[i].keys():
                     print("{:<16s}: {:<10s}".format(key, str(data[i][key])))
+                print()
+            print(msg["generalSituation"])
+        print("-"*10)

@@ -8,6 +8,11 @@ import time
 from PIL import Image,ImageDraw,ImageFont
 import traceback
 
+# path
+picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pic')
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
+if os.path.exists(libdir):
+    sys.path.append(libdir)
 # user input
 DIST = ""
 RAINFALL_DIST = ""
@@ -29,7 +34,7 @@ def drawFrame(epd):
     time.sleep(5)
     epd.init(0)
     epd.Clear(0xFF, 0)
-    Himage2=Image.open("/pic/frame.bmp")
+    Himage2=Image.open(os.path.join(picdir, "frame.bmp"))
     epd.display_4Gray(epd.getbuffer_4Gray(Himage2))
     time.sleep(5)
 

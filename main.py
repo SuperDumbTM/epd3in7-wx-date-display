@@ -39,7 +39,7 @@ forecast_wx=wx.fnd_process(VERBOSE_FLAG)
 
 def main(argv):
 
-    opts, args = getopt.getopt(argv[1:],'d:r:vh',["district=","rainfaill-district=","verbose","help"])
+    opts, args = getopt.getopt(argv[1:],'d:r:vhr',["district=","rainfaill-district=","verbose","help","rotate-display"])
     for opt,arg in opts:
         if opt in ['-d', '--district']:
             DIST = arg
@@ -47,6 +47,8 @@ def main(argv):
             RAINFALL_DIST = arg
         elif opt in ['-v', '--verbose']:
             VERBOSE_FLAG = True
+        elif opt in ['-R', '--rotate-display']:
+            ROTATE_FLAG = True
         elif opt in ['-h', '--help']:
             pass #TODO
 

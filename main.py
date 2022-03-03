@@ -17,6 +17,7 @@ DIST = ""
 RAINFALL_DIST = ""
 CUSTOM_LOC_FLAG = False
 VERBOSE_FLAG = False
+ROTATE_FLAG = False
 # translation
 month = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
 # settinh
@@ -47,7 +48,7 @@ def main(argv):
         elif opt in ['-v', '--verbose']:
             VERBOSE_FLAG = True
         elif opt in ['-h', '--help']:
-            pass
+            pass #TODO
 
     try:
         # init
@@ -63,7 +64,6 @@ def main(argv):
         draw.line((360, 100, 360, 270), fill=epd.GRAY4, width=2) # forecast, vertical
         # date
         draw.text((10,20), str_date, font = date30, fill=epd.GRAY4)
-
         # current weather
         rhrread_logo = Image.open(os.path.join(picdir, str(crrt_wx["icon"])+".bmp"))
         rhrread_logo = rhrread_logo.resize(L_icon_size)
@@ -87,9 +87,9 @@ def main(argv):
         frame.paste(fnd_logo,(385,130))
         draw.text((365,200),"温度: "+str(forecast_wx[1]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=epd.GRAY4)
         draw.text((365,220),"濕度: "+str(forecast_wx[1]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=epd.GRAY4)
-
-
-        frame = frame.rotate(180)
+        
+        # output
+        if (ROTATE_FLAG): frame = frame.rotate(180)
         epd.display_4Gray(epd.getbuffer_4Gray(frame))     
 
     except IOError as e:

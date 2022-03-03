@@ -40,23 +40,13 @@ def main(argv):
             VERBOSE_FLAG = True
         elif opt in ['-h', '--help']:
             pass
-    print("forloop")
 
     try:
         wx = weather_info.WeatherInfo()
         epd = epd3in7.EPD()
 
-        print("try block")
 
-        epd.init(0)
-        epd.Clear(0xFF, 0)
-        Himage = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
-        draw = ImageDraw.Draw(Himage)
-        draw.text((10, 0), 'hello world', font = font24, fill = 0)
-        epd.display_4Gray(epd.getbuffer_4Gray(Himage))
-        time.sleep(5)
-        epd.init(0)
-        epd.Clear(0xFF, 0)
+        drawFrame()
 
     except IOError as e:
         logging.info(e)
@@ -66,3 +56,6 @@ def main(argv):
         epd3in7.epdconfig.module_exit()
         exit()
 
+
+if __name__==__main__:
+    main()

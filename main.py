@@ -46,7 +46,7 @@ def main(argv):
         epd = epd3in7.EPD()
 
 
-        drawFrame()
+        drawFrame(epd)
 
     except IOError as e:
         logging.info(e)

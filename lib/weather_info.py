@@ -34,7 +34,7 @@ class WeatherInfo:
             "update_time":rhrread_data["temperature"]["recordTime"]
             }
         if (verbose):
-            self.verbose(data)
+            self.verbose(data,"rhr")
         return data
 
     def fnd_process(self,verbose,days=2): # 九天天氣預報   
@@ -59,13 +59,17 @@ class WeatherInfo:
         data.append(fnd_data["updateTime"])
         
         if (verbose):
-            self.verbose(data)
+            self.verbose(data,"fnd",days=days)
         
         return data
     
-    def verbose(self,data):
+    def verbose(self,data,type,days=2):
 
         translation ={}
 
-        for key in data:
-            print("{:<16s}: {:<10s}".format(key, str(data[key])))
+        if (type == "rhr"):
+            for key in data:
+                print("{:<16s}: {:<10s}".format(key, str(data[key])))
+        elif (type == "fnd"):
+            for i in range(days):
+                print("{:<16s}: {:<10s}".format(key, str(data[i])))

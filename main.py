@@ -18,7 +18,7 @@ import traceback
 
 
 try:
-    wx_info = weather_info()
+    wx_info = weather_info.WeatherInfo()
     print(wx_info.rhrread_process())
 
 

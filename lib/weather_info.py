@@ -34,7 +34,7 @@ class WeatherInfo:
             "update_time":rhrread_data["temperature"]["recordTime"]
             }
         if (verbose):
-            self.verbose(data,0)
+            self.verbose(data)
         return data
 
     def fnd_process(self,verbose,days=2): # 九天天氣預報   
@@ -59,7 +59,7 @@ class WeatherInfo:
         data.append(fnd_data["updateTime"])
         
         if (verbose):
-            self.verbose(data,0)
+            self.verbose(data)
         
         return data
     

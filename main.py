@@ -51,9 +51,9 @@ def main(argv):
     
     epd = epd3in7.EPD()
     if (CUSTOM_LOC_FLAG):
-        wx = weather_info.set_location(DIST,RAINFALL_DIST)
+        wx = weather_info.WeatherInfo(DIST,RAINFALL_DIST)
     else:
-        wx = weather_info.WeatherInfo()
+        wx = weather_info.no_location()
     crrt_wx=wx.rhrread_process(VERBOSE_FLAG)
     forecast_wx=wx.fnd_process(VERBOSE_FLAG)
 

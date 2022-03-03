@@ -2,15 +2,14 @@ import json, requests
 
 class WeatherInfo:
     
-    def __init__(self) -> None:
-        self.dist = "香港天文台"
-        self.rainfall_dist = "油尖旺"
-
-    @classmethod
-    # with specified location
-    def set_location(self,dist,rainfall_dist):
+    def __init__(self,dist,rainfall_dist) -> None:
         self.dist = dist
-        self.rain_dist = rainfall_dist
+        self.rainfall_dist = rainfall_dist
+
+    # with specified location
+    @classmethod
+    def no_location(self):
+        return self("香港天文台","油尖旺")
     
     def rhrread_process(self,verbose): # 本港地區天氣報告
         rhrread_url = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc'

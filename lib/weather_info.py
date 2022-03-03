@@ -26,10 +26,10 @@ class WeatherInfo:
         data = {
             "district":rhrread_data["temperature"]["data"][n_0]["place"],
             "temperature":rhrread_data["temperature"]["data"][n_0]["value"],
-            "humanity":rhrread_data["humidity"]["data"][0]["value"],
-            "rainfall":rhrread_data["rainfall"]["data"][n_1]["max"],
             "place_humidity":rhrread_data["humidity"]["data"][0]["place"],
+            "humanity":rhrread_data["humidity"]["data"][0]["value"],
             "place_rainfall":rhrread_data["rainfall"]["data"][n_1]["place"],
+            "rainfall":rhrread_data["rainfall"]["data"][n_1]["max"],
             "icon":rhrread_data["icon"][0],
             "update_time":rhrread_data["temperature"]["recordTime"]
             }

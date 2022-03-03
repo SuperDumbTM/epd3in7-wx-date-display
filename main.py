@@ -56,37 +56,37 @@ def main(argv):
         frame = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
         draw = ImageDraw.Draw(frame)
 
-        draw.line((0, 80, epd.height, 80), fill=1, width=5) # date
-        draw.line((330, 0, 330, 80), fill=1, width=5) # date, vertical
-        draw.rounded_rectangle((10,100,240,270), outline=0, fill=epd.GRAY1, width=2, radius=15) # current wx
-        draw.rounded_rectangle((245,100,475,270), outline=0, fill=epd.GRAY1, width=2, radius=15)# forecast
-        draw.line((360, 100, 360, 270), fill=1, width=2) # forecast, vertical
+        draw.line((0, 80, epd.height, 80), fill=epd.GRAY4, width=5) # date
+        draw.line((330, 0, 330, 80), fill=epd.GRAY4, width=5) # date, vertical
+        draw.rounded_rectangle((10,100,240,270), outline=0, fill=epd.GRAY4, width=2, radius=15) # current wx
+        draw.rounded_rectangle((245,100,475,270), outline=0, fill=epd.GRAY4, width=2, radius=15)# forecast
+        draw.line((360, 100, 360, 270), fill=epd.GRAY4, width=2) # forecast, vertical
         # date
-        draw.text((10,20), str_date, font = date30, fill=1)
+        draw.text((10,20), str_date, font = date30, fill=epd.GRAY4)
 
         # current weather
         rhrread_logo = Image.open(os.path.join(picdir, str(crrt_wx["icon"])+".bmp"))
         rhrread_logo = rhrread_logo.resize(L_icon_size)
 
-        draw.text((20,105),crrt_wx["district"], font=font24, fill=0x00)
-        draw.text((30,130),str(crrt_wx["temperature"])+'°', font=font48, fill=1)
-        draw.text((20,190),"濕度: " + str(crrt_wx["humanity"]) + "%", font=font24, fill=0x00)
-        draw.text((20,220),"雨量: " + str(crrt_wx["rainfall"]) + "mm", font=font24, fill=0x00)
+        draw.text((20,105),crrt_wx["district"], font=font24, fill=epd.GRAY4)
+        draw.text((30,130),str(crrt_wx["temperature"])+'°', font=font48, fill=epd.GRAY4)
+        draw.text((20,190),"濕度: " + str(crrt_wx["humanity"]) + "%", font=font24, fill=epd.GRAY4)
+        draw.text((20,220),"雨量: " + str(crrt_wx["rainfall"]) + "mm", font=font24, fill=epd.GRAY4)
         frame.paste(rhrread_logo,(145,145))
         # forecast
-        draw.text((270,105),"明天預報", font=font18, fill=1)
+        draw.text((270,105),"明天預報", font=font18, fill=epd.GRAY4)
         fnd_logo = Image.open(os.path.join(picdir, str(forecast_wx[0]["icon"])) + ".bmp")
         fnd_logo = fnd_logo.resize(S_icon_size)
         frame.paste(fnd_logo,(275,130))
-        draw.text((250,200),"温度: "+str(forecast_wx[0]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=0x00)
-        draw.text((250,220),"濕度: "+str(forecast_wx[0]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=0x00)
+        draw.text((250,200),"温度: "+str(forecast_wx[0]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=epd.GRAY4)
+        draw.text((250,220),"濕度: "+str(forecast_wx[0]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=epd.GRAY4)
 
-        draw.text((380,105),"後天預報", font=font18, fill=1)
+        draw.text((380,105),"後天預報", font=font18, fill=epd.GRAY4)
         fnd_logo = Image.open(os.path.join(picdir, str(forecast_wx[1]["icon"])) + ".bmp")
         fnd_logo = fnd_logo.resize(S_icon_size)
         frame.paste(fnd_logo,(385,130))
-        draw.text((365,200),"温度: "+str(forecast_wx[1]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=0x00)
-        draw.text((365,220),"濕度: "+str(forecast_wx[1]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=0x00)
+        draw.text((365,200),"温度: "+str(forecast_wx[1]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=epd.GRAY4)
+        draw.text((365,220),"濕度: "+str(forecast_wx[1]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=epd.GRAY4)
 
 
         frame = frame.rotate(180)

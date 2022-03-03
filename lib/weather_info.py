@@ -56,7 +56,8 @@ class WeatherInfo:
                     "humanityMax":fnd_data["weatherForecast"][i]["forecastMaxrh"]["value"],
                     "wind":fnd_data["weatherForecast"][i]["forecastWind"],
                     "forecast":fnd_data["weatherForecast"][i]["forecastWeather"],
-                    "psr":fnd_data["weatherForecast"][i]["PSR"]
+                    "psr":fnd_data["weatherForecast"][i]["PSR"],
+                    "icon":fnd_data["weatherForecast"][i]["ForecastIcon"]
                 }
         data["generalSituation"]=fnd_data["generalSituation"]
         data["updata_time"]=fnd_data["updateTime"]

@@ -45,10 +45,11 @@ class WeatherInfo:
     def fnd_process(self,verbose,days=2): # 九天天氣預報   
         fnd_url = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=tc'
         fnd_data = json.loads(requests.get(fnd_url).text)
-        data={}
+        data=[]
         
         for i in range (days):
-            data[fnd_data["weatherForecast"][i]["forecastDate"]]={
+            data.append({
+                    "forecastDate":fnd_data["weatherForecast"][i]["forecastDate"],
                     "week":fnd_data["weatherForecast"][i]["week"],
                     "temperatureMin":fnd_data["weatherForecast"][i]["forecastMintemp"]["value"],
                     "temperatureMax":fnd_data["weatherForecast"][i]["forecastMaxtemp"]["value"],
@@ -57,8 +58,8 @@ class WeatherInfo:
                     "wind":fnd_data["weatherForecast"][i]["forecastWind"],
                     "forecast":fnd_data["weatherForecast"][i]["forecastWeather"],
                     "psr":fnd_data["weatherForecast"][i]["PSR"],
-                    "icon":fnd_data["weatherForecast"][i]["ForecastIcon"]
-                }
+                    "icon":fnd_data["weatherForecast"][i]["ForecastIcon"]}
+            )
         data["generalSituation"]=fnd_data["generalSituation"]
         data["updata_time"]=fnd_data["updateTime"]
         

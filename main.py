@@ -40,13 +40,14 @@ def main(argv):
             VERBOSE_FLAG = True
         elif opt in ['-h', '--help']:
             pass
+    print("forloop")
 
     try:
         wx = weather_info.WeatherInfo()
         epd = epd3in7.EPD()
 
         print("try block")
-        
+
         epd.init(0)
         epd.Clear(0xFF, 0)
         Himage = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
@@ -57,8 +58,6 @@ def main(argv):
         epd.init(0)
         epd.Clear(0xFF, 0)
 
-
-        
     except IOError as e:
         logging.info(e)
         

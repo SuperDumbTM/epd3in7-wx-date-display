@@ -33,26 +33,29 @@ font24 = ImageFont.truetype("./font/msjh.ttc", 24)
 font18 = ImageFont.truetype("./font/msjh.ttc", 18)
 date30 = ImageFont.truetype("./font/unispace bd.ttf", 30)
 
-epd = epd3in7.EPD()
-wx = weather_info.WeatherInfo()
-crrt_wx=wx.rhrread_process(VERBOSE_FLAG)
-forecast_wx=wx.fnd_process(VERBOSE_FLAG)
-
 def main(argv):
     global DIST, RAINFALL_DIST, CUSTOM_LOC_FLAG, VERBOSE_FLAG, ROTATE_FLAG
 
-    opts, args = getopt.getopt(argv[1:],'d:r:vhR',["district=","rainfaill-district=","verbose","help","rotate-display"])
+    opts, args = getopt.getopt(argv[1:],'c:vhR',["custom-location=","verbose","help","rotate-display"])
     for opt,arg in opts:
-        if opt in ['-d', '--district']:
-            DIST = arg
-        elif opt in ['-r', '--rainfaill-district']:
-            RAINFALL_DIST = arg
+        if opt in ['-c', '--custom-location']:
+            CUSTOM_LOC_FLAG = True
+            DIST = arg[0]
+            RAINFALL_DIST = arg[1]
         elif opt in ['-v', '--verbose']:
             VERBOSE_FLAG = True
         elif opt in ['-R', '--rotate-display']:
             ROTATE_FLAG = True
         elif opt in ['-h', '--help']:
             pass #TODO
+    
+    epd = epd3in7.EPD()
+    if (CUSTOM_LOC_FLAG):
+        wx = weather_info.set_location(DIST,RAINFALL_DIST)
+    else:
+        wx = weather_info.WeatherInfo()
+    crrt_wx=wx.rhrread_process(VERBOSE_FLAG)
+    forecast_wx=wx.fnd_process(VERBOSE_FLAG)
 
     try:
         # init

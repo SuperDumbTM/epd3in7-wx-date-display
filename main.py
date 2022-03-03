@@ -21,8 +21,9 @@ ROTATE_FLAG = False
 # translation
 month = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
 # settinh
-today = (date.today().strftime("%d"),date.today().strftime("%m"),date.today().strftime("%Y"),date.today().strftime("%b"))
-str_date = today[0] + " " + today[3].upper() + ", " + today[2]
+today = (date.today().strftime("%d"),date.today().strftime("%m"),date.today().strftime("%Y"),
+    date.today().strftime("%a"),date.today().strftime("%b"))
+str_date = today[0] + " " + today[4].upper() + ", " + today[2] + " " + today[3].upper()
 L_icon_size = 80, 80
 S_icon_size = 60, 60
 # set font

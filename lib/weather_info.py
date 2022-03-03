@@ -72,4 +72,5 @@ class WeatherInfo:
                 print("{:<16s}: {:<10s}".format(key, str(data[key])))
         elif (type == "fnd"):
             for i in range(days):
-                print("{:<16s}: {:<10s}".format(key, str(data[i])))
+                for key in data:
+                    print("{:<16s}: {:<10s}".format(key, str(data[key])))

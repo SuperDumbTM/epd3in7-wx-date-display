@@ -8,7 +8,7 @@ class WeatherInfo:
 
     @classmethod
     # with specified location
-    def WeatherInfo(self,dist,rainfall_dist):
+    def set_location(self,dist,rainfall_dist):
         self.dist = dist
         self.rain_dist = rainfall_dist
     

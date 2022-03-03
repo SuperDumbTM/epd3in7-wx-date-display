@@ -16,35 +16,21 @@ if os.path.exists(libdir):
 # user input
 DIST = ""
 RAINFALL_DIST = ""
+CUSTOM_LOC_FLAG = False
 VERBOSE_FLAG = False
 # set font
 font24 = ImageFont.truetype("./font/msjh.ttc", 24)
 font18 = ImageFont.truetype("./font/msjh.ttc", 18)
 font14 = ImageFont.truetype("./font/msjh.ttc", 14)
 
-def drawFrame(epd):
+def draw_frame(epd):
     epd.init(0)
     epd.Clear(0xFF, 0)
 
     frame = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
     draw = ImageDraw.Draw(frame)
-    draw.text((10, 0), 'hello world', font = font24, fill = 0)
-    epd.display_4Gray(epd.getbuffer_4Gray(frame))
-    time.sleep(5)
 
-    print(os.path.join(picdir, "3in7_Scale.bmp"))
-    Himage=Image.open(os.path.join(picdir, "frame.bmp"))
-    print("after Himage")
-    epd.display_4Gray(epd.getbuffer_4Gray(Himage))
-    time.sleep(5)
-
-    Limage = Image.new('L', (epd.width, epd.height), 0xFF)  # 0xFF: clear the frame
-    draw = ImageDraw.Draw(Limage)
-    draw.text((2, 0), 'hello world', font = font18, fill = 0)
-    draw.text((2, 20), '3.7inch epd', font = font18, fill = 0)
-    draw.rectangle((130, 20, 274, 56), 'black', 'black')
-    epd.display_4Gray(epd.getbuffer_4Gray(Limage))
-    time.sleep(5)
+    
 
     epd.init(0)
     epd.Clear(0xFF, 0)
@@ -67,7 +53,7 @@ def main(argv):
         epd = epd3in7.EPD()
 
 
-        drawFrame(epd)
+        draw_frame(epd)
 
     except IOError as e:
         logging.info(e)

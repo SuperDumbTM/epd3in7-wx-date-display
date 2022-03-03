@@ -32,6 +32,7 @@ def drawFrame(epd):
     epd.display_4Gray(epd.getbuffer_4Gray(frame))
     time.sleep(5)
 
+    print("after sleep")
     Himage2=Image.open(os.path.join(picdir, "3in7_Scale.bmp"))
     epd.display_4Gray(epd.getbuffer_4Gray(Himage2))
     time.sleep(5)

@@ -60,8 +60,8 @@ class WeatherInfo:
                     "psr":fnd_data["weatherForecast"][i]["PSR"],
                     "icon":fnd_data["weatherForecast"][i]["ForecastIcon"]}
             )
-        data["generalSituation"]=fnd_data["generalSituation"]
-        data["updata_time"]=fnd_data["updateTime"]
+        data.append(fnd_data["generalSituation"])
+        data.append(fnd_data["updateTime"])
         
         if (verbose):
             self.verbose(data,0)

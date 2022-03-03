@@ -47,6 +47,8 @@ def main(argv):
             ROTATE_FLAG = True
         elif opt in ['-h', '--help']:
             pass #TODO
+    if(DIST=="" and VERBOSE_FLAG): print("[WARN] district is missing, fallback to 'HKO'")
+    if(RAINFALL_DIST=="" and VERBOSE_FLAG): print("[WARN] rainfall district is missing, fallback to 'KT'")
     
     epd = epd3in7.EPD()
     wx = weather_info.WeatherInfo(dist=DIST,rainfall_dist=RAINFALL_DIST)

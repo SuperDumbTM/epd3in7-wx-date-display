@@ -1,12 +1,11 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-import sys, getopt
-import os
-import logging
-from lib import epd3in7, weather_info
+import os, sys, getopt
+from datetime import date, timedelta
 import time
+from lib import epd3in7, weather_info
 from PIL import Image,ImageDraw,ImageFont
-import traceback
+import traceback, logging
 
 # path
 picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'pic')
@@ -18,22 +17,24 @@ DIST = ""
 RAINFALL_DIST = ""
 CUSTOM_LOC_FLAG = False
 VERBOSE_FLAG = False
+# translation
+month = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]
+# settinh
+today = (date.today().strftime("%d"),date.today().strftime("%m"),date.today().strftime("%Y"),date.today().strftime("%b"))
+str_date = today[0] + " " + today[3].upper() + ", " + today[2]
+L_icon_size = 80, 80
+S_icon_size = 60, 60
 # set font
+font48 = ImageFont.truetype("./font/msjh.ttc", 48)
+font28 = ImageFont.truetype("./font/msjh.ttc", 28)
 font24 = ImageFont.truetype("./font/msjh.ttc", 24)
 font18 = ImageFont.truetype("./font/msjh.ttc", 18)
-font14 = ImageFont.truetype("./font/msjh.ttc", 14)
+date30 = ImageFont.truetype("./font/unispace bd.ttf", 30)
 
-def draw_frame(epd):
-    epd.init(0)
-    epd.Clear(0xFF, 0)
-
-    frame = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
-    draw = ImageDraw.Draw(frame)
-
-    
-
-    epd.init(0)
-    epd.Clear(0xFF, 0)
+epd = epd3in7.EPD()
+wx = weather_info.WeatherInfo()
+crrt_wx=wx.rhrread_process(VERBOSE_FLAG)
+forecast_wx=wx.fnd_process(VERBOSE_FLAG)
 
 def main(argv):
 
@@ -49,11 +50,47 @@ def main(argv):
             pass
 
     try:
-        wx = weather_info.WeatherInfo()
-        epd = epd3in7.EPD()
+        # init
+        epd.init(0)
+        epd.Clear(0xFF, 0)
+        frame = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
+        draw = ImageDraw.Draw(frame)
+
+        draw.line((0, 80, epd.height, 80), fill=1, width=5) # date
+        draw.line((330, 0, 330, 80), fill=1, width=5) # date, vertical
+        draw.rounded_rectangle((10,100,240,270), outline=0, fill=epd.GRAY1, width=2, radius=15) # current wx
+        draw.rounded_rectangle((245,100,475,270), outline=0, fill=epd.GRAY1, width=2, radius=15)# forecast
+        draw.line((360, 100, 360, 270), fill=1, width=2) # forecast, vertical
+        # date
+        draw.text((10,20), str_date, font = date30, fill=1)
+
+        # current weather
+        rhrread_logo = Image.open(os.path.join(picdir, str(crrt_wx["icon"])+".bmp"))
+        rhrread_logo = rhrread_logo.resize(L_icon_size)
+
+        draw.text((20,105),crrt_wx["district"], font=font24, fill=0x00)
+        draw.text((30,130),str(crrt_wx["temperature"])+'°', font=font48, fill=1)
+        draw.text((20,190),"濕度: " + str(crrt_wx["humanity"]) + "%", font=font24, fill=0x00)
+        draw.text((20,220),"雨量: " + str(crrt_wx["rainfall"]) + "mm", font=font24, fill=0x00)
+        frame.paste(rhrread_logo,(145,145))
+        # forecast
+        draw.text((270,105),"明天預報", font=font18, fill=1)
+        fnd_logo = Image.open(os.path.join(picdir, str(forecast_wx[0]["icon"])) + ".bmp")
+        fnd_logo = fnd_logo.resize(S_icon_size)
+        frame.paste(fnd_logo,(275,130))
+        draw.text((250,200),"温度: "+str(forecast_wx[0]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=0x00)
+        draw.text((250,220),"濕度: "+str(forecast_wx[0]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=0x00)
+
+        draw.text((380,105),"後天預報", font=font18, fill=1)
+        fnd_logo = Image.open(os.path.join(picdir, str(forecast_wx[1]["icon"])) + ".bmp")
+        fnd_logo = fnd_logo.resize(S_icon_size)
+        frame.paste(fnd_logo,(385,130))
+        draw.text((365,200),"温度: "+str(forecast_wx[1]["temperatureMin"])+"-"+str(forecast_wx[0]["temperatureMax"])+"°", font=font18, fill=0x00)
+        draw.text((365,220),"濕度: "+str(forecast_wx[1]["humanityMin"])+"-"+str(forecast_wx[0]["humanityMax"])+"%", font=font18, fill=0x00)
 
 
-        draw_frame(epd)
+        frame = frame.rotate(180)
+        epd.display_4Gray(epd.getbuffer_4Gray(frame))     
 
     except IOError as e:
         logging.info(e)

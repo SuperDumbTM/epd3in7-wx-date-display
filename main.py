@@ -15,7 +15,6 @@ if os.path.exists(libdir):
 # user input
 DIST = ""
 RAINFALL_DIST = ""
-CUSTOM_LOC_FLAG = False
 VERBOSE_FLAG = False
 ROTATE_FLAG = False
 # translation
@@ -34,15 +33,13 @@ font18 = ImageFont.truetype("./font/msjh.ttc", 18)
 date30 = ImageFont.truetype("./font/unispace bd.ttf", 30)
 
 def main(argv):
-    global DIST, RAINFALL_DIST, CUSTOM_LOC_FLAG, VERBOSE_FLAG, ROTATE_FLAG
+    global DIST, RAINFALL_DIST, VERBOSE_FLAG, ROTATE_FLAG
 
     opts, args = getopt.getopt(argv[1:],'d:r:vhR',["district=","rainfall-district=","verbose","help","rotate-display"])
     for opt,arg in opts:
         if opt in ['-d', '--district']:
-            CUSTOM_LOC_FLAG = True
             DIST = arg
         elif opt in ['-r', '--rainfall-district']:
-            CUSTOM_LOC_FLAG = True
             RAINFALL_DIST = arg
         elif opt in ['-v', '--verbose']:
             VERBOSE_FLAG = True
@@ -52,10 +49,7 @@ def main(argv):
             pass #TODO
     
     epd = epd3in7.EPD()
-    if (CUSTOM_LOC_FLAG):
-        wx = weather_info.WeatherInfo(DIST,RAINFALL_DIST)
-    else:
-        wx = weather_info.no_location()
+    wx = weather_info.WeatherInfo(dist=DIST,rainfall_dist=RAINFALL_DIST)
     crrt_wx=wx.rhrread_process(VERBOSE_FLAG)
     forecast_wx=wx.fnd_process(VERBOSE_FLAG)
 

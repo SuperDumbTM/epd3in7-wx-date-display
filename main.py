@@ -33,8 +33,9 @@ def drawFrame(epd):
     time.sleep(5)
 
     print("after sleep")
-    Himage2=Image.open(os.path.join(picdir, "3in7_Scale.bmp"))
-    epd.display_4Gray(epd.getbuffer_4Gray(Himage2))
+    Himage=Image.open(os.path.join(picdir, "3in7_Scale.bmp"))
+    print(os.path.join(picdir, "3in7_Scale.bmp"))
+    epd.display_4Gray(epd.getbuffer_4Gray(Himage))
     time.sleep(5)
 
     Limage = Image.new('L', (epd.width, epd.height), 0xFF)  # 0xFF: clear the frame

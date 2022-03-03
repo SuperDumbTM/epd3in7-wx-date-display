@@ -48,8 +48,8 @@ class WeatherInfo:
         data=[]
         
         for i in range (days):
-            data.append({
-                    "forecastDate":fnd_data["weatherForecast"][i]["forecastDate"],
+            data.append(
+                    {"forecastDate":fnd_data["weatherForecast"][i]["forecastDate"],
                     "week":fnd_data["weatherForecast"][i]["week"],
                     "temperatureMin":fnd_data["weatherForecast"][i]["forecastMintemp"]["value"],
                     "temperatureMax":fnd_data["weatherForecast"][i]["forecastMaxtemp"]["value"],
@@ -65,6 +65,8 @@ class WeatherInfo:
         
         if (verbose):
             self.verbose(data,0)
+        
+        return data
     
     def verbose(self,data):
 

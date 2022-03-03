@@ -20,13 +20,18 @@ font14 = ImageFont.truetype("./font/msjh.ttc", 14)
 def drawFrame(epd):
     epd.init(0)
     epd.Clear(0xFF, 0)
-    Himage = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
-    draw = ImageDraw.Draw(Himage)
+
+    frame = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
+
+    draw = ImageDraw.Draw(frame)
     draw.text((10, 0), 'hello world', font = font24, fill = 0)
-    epd.display_4Gray(epd.getbuffer_4Gray(Himage))
+    epd.display_4Gray(epd.getbuffer_4Gray(frame))
     time.sleep(5)
     epd.init(0)
     epd.Clear(0xFF, 0)
+    Himage2=Image.open("/pic/frame.bmp")
+    epd.display_4Gray(epd.getbuffer_4Gray(Himage2))
+    time.sleep(5)
 
 def main(argv):
 
@@ -57,5 +62,5 @@ def main(argv):
         exit()
 
 
-if __name__=="{__main__":
-    main()
+if __name__=="__main__":
+    main(sys.argv)

@@ -18,6 +18,8 @@ font18 = ImageFont.truetype("./font/msjh.ttc", 18)
 font14 = ImageFont.truetype("./font/msjh.ttc", 14)
 
 def drawFrame(epd):
+    epd.init(0)
+    epd.Clear(0xFF, 0)
     Himage = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
     draw = ImageDraw.Draw(Himage)
     draw.text((10, 0), 'hello world', font = font24, fill = 0)
@@ -42,10 +44,6 @@ def main(argv):
     try:
         wx = weather_info.WeatherInfo()
         epd = epd3in7.EPD()
-
-        # init and clear
-        epd.init(0)
-        epd.Clear(0xFF, 0)
 
         drawFrame(epd)
 

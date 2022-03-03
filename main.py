@@ -45,7 +45,17 @@ def main(argv):
         wx = weather_info.WeatherInfo()
         epd = epd3in7.EPD()
 
-        drawFrame(epd)
+        print("try block")
+        
+        epd.init(0)
+        epd.Clear(0xFF, 0)
+        Himage = Image.new('L', (epd.height, epd.width), 0xFF)  # 0xFF: clear the frame, draw white
+        draw = ImageDraw.Draw(Himage)
+        draw.text((10, 0), 'hello world', font = font24, fill = 0)
+        epd.display_4Gray(epd.getbuffer_4Gray(Himage))
+        time.sleep(5)
+        epd.init(0)
+        epd.Clear(0xFF, 0)
 
 
         

@@ -61,7 +61,7 @@ def main(argv):
         draw = ImageDraw.Draw(frame)
 
         draw.line((0, 80, epd.height, 80), fill=epd.GRAY4, width=5) # date
-        draw.line((330, 0, 330, 80), fill=epd.GRAY4, width=5) # date, vertical
+        draw.line((335, 0, 335, 80), fill=epd.GRAY4, width=5) # date, vertical
         draw.rounded_rectangle((10,100,240,270), outline=0, fill=epd.GRAY1, width=2, radius=15) # current wx
         draw.rounded_rectangle((245,100,475,270), outline=0, fill=epd.GRAY1, width=2, radius=15)# forecast
         draw.line((360, 100, 360, 270), fill=epd.GRAY4, width=2) # forecast, vertical
